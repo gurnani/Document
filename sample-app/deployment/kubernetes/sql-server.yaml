@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sql-server
+  namespace: ecommerce
+  labels:
+    app: sql-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sql-server
+  template:
+    metadata:
+      labels:
+        app: sql-server
+    spec:
+      containers:
+      - name: sql-server
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ecommerce-secrets
+              key: SA_PASSWORD
+        - name: MSSQL_PID
+          value: "Express"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        volumeMounts:
+        - name: sql-data
+          mountPath: /var/opt/mssql
+        livenessProbe:
+          exec:
+            command:
+            - /opt/mssql-tools/bin/sqlcmd
+            - -S
+            - localhost
+            - -U
+            - sa
+            - -P
+            - $(SA_PASSWORD)
+            - -Q
+            - SELECT 1
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          exec:
+            command:
+            - /opt/mssql-tools/bin/sqlcmd
+            - -S
+            - localhost
+            - -U
+            - sa
+            - -P
+            - $(SA_PASSWORD)
+            - -Q
+            - SELECT 1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: sql-data
+        persistentVolumeClaim:
+          claimName: sql-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sql-server
+  namespace: ecommerce
+spec:
+  selector:
+    app: sql-server
+  ports:
+  - port: 1433
+    targetPort: 1433
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sql-data-pvc
+  namespace: ecommerce
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: managed-premium

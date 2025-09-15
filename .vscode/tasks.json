@@ -1,0 +1,347 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Frontend: Install Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["install"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/frontend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Frontend: Start Development Server",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "dev"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/frontend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "ts",
+        "applyTo": "closedDocuments",
+        "fileLocation": ["relative", "${workspaceFolder}/sample-app/frontend"],
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*Local:.*",
+          "endsPattern": ".*ready in.*"
+        }
+      }
+    },
+    {
+      "label": "Frontend: Build Production",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/frontend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "Frontend: Run Tests",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "test"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/frontend"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Frontend: Run Tests with Coverage",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "test:coverage"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/frontend"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Frontend: Lint",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "lint"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/frontend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "Backend: Restore Dependencies",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["restore"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Backend: Build",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "--no-restore"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "dependsOn": "Backend: Restore Dependencies",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Backend: Run Development Server",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["run", "--project", "ECommerce.API"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "dependsOn": "Backend: Build",
+      "problemMatcher": {
+        "owner": "csharp",
+        "pattern": "$msCompile",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\s*info: Microsoft\\.Hosting\\.Lifetime",
+          "endsPattern": "^\\s*info: Microsoft\\.Hosting\\.Lifetime.*Application started\\."
+        }
+      }
+    },
+    {
+      "label": "Backend: Run Tests",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["test", "--no-build", "--verbosity", "normal"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "dependsOn": "Backend: Build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Backend: Run Tests with Coverage",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "test",
+        "--no-build",
+        "--verbosity",
+        "normal",
+        "--collect:\"XPlat Code Coverage\"",
+        "--results-directory",
+        "./TestResults"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "dependsOn": "Backend: Build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Database: Update Database",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["ef", "database", "update"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend/ECommerce.API"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Database: Add Migration",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["ef", "migrations", "add", "${input:migrationName}"],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend/ECommerce.API"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Build Frontend",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "build",
+        "-t",
+        "ecommerce-frontend:latest",
+        "-f",
+        "Dockerfile",
+        "."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/frontend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Build Backend",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "build",
+        "-t",
+        "ecommerce-backend:latest",
+        "-f",
+        "Dockerfile",
+        "."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/sample-app/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Full Stack: Start Development",
+      "dependsOrder": "parallel",
+      "dependsOn": [
+        "Backend: Run Development Server",
+        "Frontend: Start Development Server"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Full Stack: Run All Tests",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Backend: Run Tests with Coverage",
+        "Frontend: Run Tests with Coverage"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "migrationName",
+      "description": "Enter migration name",
+      "default": "NewMigration",
+      "type": "promptString"
+    }
+  ]
+}

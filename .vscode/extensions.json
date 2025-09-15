@@ -1,0 +1,88 @@
+{
+  "recommendations": [
+    // GitHub Copilot Extensions
+    "github.copilot",
+    "github.copilot-chat",
+    
+    // Frontend Development
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "ms-vscode.vscode-json",
+    
+    // React Development
+    "dsznajder.es7-react-js-snippets",
+    "burkeholland.simple-react-snippets",
+    "ms-vscode.vscode-react-native",
+    
+    // Backend Development (.NET)
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.vscode-dotnet-pack",
+    "jchannon.csharpextensions",
+    
+    // Database
+    "ms-mssql.mssql",
+    "ms-mssql.data-workspace-vscode",
+    
+    // DevOps & Deployment
+    "ms-azure-devops.azure-pipelines",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-azuretools.vscode-azureresourcegroups",
+    "ms-azuretools.vscode-azurefunctions",
+    
+    // Testing
+    "ms-vscode.test-adapter-converter",
+    "hbenl.vscode-test-explorer",
+    "formulahendry.dotnet-test-explorer",
+    "orta.vscode-jest",
+    "ms-playwright.playwright",
+    
+    // Code Quality
+    "sonarsource.sonarlint-vscode",
+    "ms-vscode.vscode-github-issue-notebooks",
+    "github.vscode-pull-request-github",
+    "eamodio.gitlens",
+    
+    // Productivity
+    "ms-vscode.powershell",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode.remote-explorer",
+    "redhat.vscode-yaml",
+    "redhat.vscode-xml",
+    "ms-vscode.hexeditor",
+    
+    // Themes & Icons
+    "github.github-vscode-theme",
+    "vscode-icons-team.vscode-icons",
+    "pkief.material-icon-theme",
+    
+    // Documentation
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    "bierner.markdown-mermaid",
+    "shd101wyy.markdown-preview-enhanced",
+    
+    // API Development
+    "humao.rest-client",
+    "42crunch.vscode-openapi",
+    "ms-vscode.vscode-swagger-viewer",
+    
+    // Utilities
+    "streetsidesoftware.code-spell-checker",
+    "wayou.vscode-todo-highlight",
+    "gruntfuggly.todo-tree",
+    "alefragnani.bookmarks",
+    "ms-vscode.notepadplusplus-keybindings"
+  ],
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-typescript",
+    "hookyqr.beautify"
+  ]
+}
